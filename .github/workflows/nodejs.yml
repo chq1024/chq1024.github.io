@@ -19,4 +19,4 @@ jobs:
         token: ${{ secrets.notion_secret }}
         repository-name: chq1024/chq1024.github.io
         BRANCH: main  
-        FOLDER: public
+        FOLDER: .
