@@ -1,4 +1,4 @@
-name: CI
+name: Node.js Reference Test
 
 on: [push]
 
@@ -7,17 +7,19 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        node-version: [15, 16]
+
     steps:
-    - name: checkout
-      uses: actions/checkout@v3
-    - name: build  
+    - uses: actions/checkout@v1
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: Generate the test blog
       run: |
         npm i -g notablog
         notablog generate .
-    - name: deploy
-      uses: JamesIves/github-pages-deploy-action@v4
-      with: 
-        token: ${{ secrets.notion_secret }}
-        repository-name: chq1024/chq1024.github.io
-        BRANCH: main                    
-        FOLDER: public
+      env:
+        CI: true
