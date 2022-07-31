@@ -14,13 +14,15 @@ jobs:
         uses: actions/checkout@v3
 
       - name: build
-        run: npm i -g notablog && notablog generate .
+        run: |
+          npm i -g notablog
+          notablog generate .
 
       - name: deploy
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-              token: ${{ secrets.note_secret }}
-              repository-name: chq1024/chq1024.github.io # 修改这里
+              token: ${{ secrets.notion_secret }}
+              repository-name: chq1024/chq1024.github.io
               BRANCH: main  
               FOLDER: public
           
